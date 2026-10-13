@@ -232,11 +232,11 @@ otelcol.processor.transform "drop_unneeded_resource_attributes" {
     
 otelcol.connector.host_info "default" {
   // https://grafana.com/docs/alloy/latest/reference/components/otelcol.connector.host_info/
-  host_identifiers = ["container.name", "container.id", "service.name"]
-    
-  output {
-    metrics = [otelcol.processor.batch.default.input]
-  }
+  host_identifiers = ["host.id", "host.name"]  
+
+  output {  
+    metrics = [otelcol.processor.batch.default.input]  
+  } 
 }
     
 otelcol.processor.transform "add_resource_attributes_as_metric_attributes" {
