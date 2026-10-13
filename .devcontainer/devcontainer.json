@@ -1,0 +1,13 @@
+{
+  "name": "quickpizza",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/go:1": { "version": "1.26" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "lts" },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "bash .devcontainer/install-tools.sh",
+  "postStartCommand": "bash .devcontainer/fix-docker-forward.sh",
+  "forwardPorts": [3333, 3334]
+}
