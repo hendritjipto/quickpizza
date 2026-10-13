@@ -1,5 +1,5 @@
 #!/bin/bash
-shopt -s globstar
+shopt -s globstar 2>/dev/null # not available in bash 3.2 (macOS default)
 
 while getopts "u:t:" flag; do
   case $flag in
@@ -11,7 +11,7 @@ done
 
 BASE_URL="${BASE_URL:=http://localhost:3333}"
 K6_PATH="${K6_PATH:=k6}"
-TESTS="${TESTS:=**/k6/foundations/*.js}"
+TESTS="${TESTS:=k6/foundations/*.js}"
 LOGS=logs.txt
 
 export K6_BROWSER_HEADLESS=true
