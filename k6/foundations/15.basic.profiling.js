@@ -6,7 +6,7 @@ const BASE_URL = __ENV.BASE_URL || "http://localhost:3333";
 
 export const options = {
   vus: 15,
-  duration: "10s",
+  duration: "1m",
 };
 
 pyroscope.instrumentHTTP();

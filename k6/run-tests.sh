@@ -13,6 +13,10 @@ BASE_URL="${BASE_URL:=http://localhost:3333}"
 K6_PATH="${K6_PATH:=k6}"
 TESTS="${TESTS:=k6/foundations/*.js}"
 LOGS=logs.txt
+K6_COMMAND=("$K6_PATH" run)
+if [[ "${K6_OUT:-}" == "cloud" ]]; then
+    K6_COMMAND=("$K6_PATH" cloud run --local-execution)
+fi
 
 export K6_BROWSER_HEADLESS=true
 # Chrome 146+: crashpad reads cpufreq sysfs that GitHub runners omit; disable the
@@ -33,7 +37,7 @@ for test in $TESTS; do
 	# Disable thresholds because some threshold examples fail
     echo "Running: $test"
     rm -f $LOGS
-	$K6_PATH run --no-thresholds -e BASE_URL="$BASE_URL" --log-output=file=$LOGS --log-format=json -w --summary-mode=disabled "$test"
+    "${K6_COMMAND[@]}" --no-thresholds -e BASE_URL="$BASE_URL" --log-output=file=$LOGS --log-format=json -w --summary-mode=disabled "$test"
     k6_exit_code=$?
 
     # Only check error logs if logs file is not empty.

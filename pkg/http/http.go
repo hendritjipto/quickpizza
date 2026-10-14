@@ -312,9 +312,8 @@ func NewServer(profiling bool, traceInstaller *otel.OTelInstaller) *Server {
 		}).Handler,
 	)
 
-	if profiling {
-		router.Use(k6.LabelsFromBaggageHandler)
-	} else {
+	router.Use(k6.LabelsFromBaggageHandler)
+	if !profiling {
 		slog.Info("enabling Pyroscope profiling in Pull mode")
 		router.Mount("/debug/pprof/", http.DefaultServeMux)
 	}
